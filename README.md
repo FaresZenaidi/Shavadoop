@@ -7,6 +7,10 @@ Design and implementation of a parallel and distributed system that computes the
 ## Architecture description
 The computing framework uses multiple computers inside Telecom ParisTech’s local network to run the word count procedure on text files. No transfer of files between distant computers is required since all files are saved in a centralized fashion inside the File System of Telecom ParisTech. The architecture consists of a master node that sends tasks to multiple slave nodes through SSH commands. 
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/FaresZenaidi/Shavadoop/master/Pictures/MRWordCount.png" alt="Map Reduce Word Count"/>
+</p>
+
 ## Procedure
 I) The Master node:
 * finds the available hosts of the network (network_discovery function).
