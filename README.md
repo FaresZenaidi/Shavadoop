@@ -19,9 +19,9 @@ I) The Master node:
 * distributes these generated splits to the available hosts of the network via threads.
 
 II) The Slave node:
-* generates count of each word in the split it has received and writes the output on the console (mapping function - mode SXUMX where UMx files are generated).
+* generates the count of each word in the split it receives and writes the output on the console (mapping function - mode SXUMX where UMx files are generated).
 
-III) The Master nodes:
+III) The Master node:
 * recuperates the output of the console to generate the <word, List(UM)> dictionary. For each word (key) of the dictionary, the Master launches a thread that calls the reduce method of the slave (mode UMXSMX: UMx-> SMx and afterwards SMx -> RMx) and retrieves the corresponding result from the console. 
 * finally, the Master waits until all threads finish their execution and assembles all RMx files into a final output file.
 
