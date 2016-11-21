@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
-public class ThreadExecutor extends Thread implements Runnable 
+public class ThreadExecutor extends Thread
 {
 	public String splitName;
 	public String slaveNode;
@@ -14,7 +14,7 @@ public class ThreadExecutor extends Thread implements Runnable
 	public ArrayList<String> singleWords = new ArrayList<String>(); 
 	public String wordCount = "";
 
-	// Constructeur 1 - Splitting, Mapping
+	// Constructor 1: calls method map in SlaveWork class.
 	public ThreadExecutor(String splitName, String slaveNode)
 	{
 		this.splitName = splitName;
@@ -24,24 +24,28 @@ public class ThreadExecutor extends Thread implements Runnable
 		this.word = "";
 	}
 
-	// Constructeur 2 - Shuffling, reducing
-	public ThreadExecutor(String splitName, String slaveNode, String mode, String SMx, String word)
+	// Constructor 2: calls methods shuffle and  reduce in SlaveWork class.	
+	// Be aware that UMs corresponds to several UM separated by a comma
+	public ThreadExecutor(String UMs, String slaveNode, String mode, String SMx, String word)
 	{
-		this.splitName = splitName;
+		this.splitName = UMs;
 		this.slaveNode = slaveNode;
 		this.mode = mode;
 		this.SMx = SMx;
 		this.word = word;
 	}
 
+	/**
+	 * Specific method for ThreadExecutor class. According to the mode (SXUMX or UMXSMX), slaveWork class will execute in a specific manner.
+	 */
 	public void run()
 	{
 		try {
-
 			ProcessBuilder pb = new ProcessBuilder("ssh", slaveNode, "java -jar ~/workspace/SLAVE_SHAVADOOP.jar " + this.mode +
 																     " " + this.word + " " + this.SMx + " " + this.splitName);
 			Process p = pb.start();
 			p.waitFor();
+			// Buffered Reader object to read from console 
 			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			if (this.mode.equals("SXUMX")) {
 				String line = br.readLine();
@@ -73,25 +77,4 @@ public class ThreadExecutor extends Thread implements Runnable
 	{
 		return this.wordCount;
 	}
-
-
-	/*
-	public void run(){
-		try {
-			System.out.println("\t Executing SLAVE over: " +slave_node);
-			System.out.println("\t " + slave_node + ": Before the command");
-			ProcessBuilder pb = new ProcessBuilder("ssh", slave_node, "java -jar ~/workspace/SLAVE_SHAVADOOP.jar");
-			long tempsDebut = System.currentTimeMillis();
-			Process p = pb.start();
-			p.waitFor();
-			long tempsFin = System.currentTimeMillis();
-			System.out.println("\t After the command, " +slave_node + ": time elapsed = " + (tempsFin - tempsDebut) / 1000 + "s"); 		
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-	}    
-	 */   
 }
