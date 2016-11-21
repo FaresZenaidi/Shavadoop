@@ -12,6 +12,8 @@ The computing framework uses multiple computers inside Telecom ParisTech’s loc
 </p>
 
 ## Procedure
+The master manages and launches programm remotly while the slaves run tasks launched by the Master.
+
 I) The Master node:
 * finds the available hosts of the network (network_discovery function).
 * splits the initial file on which the word count procedure will be performed, either by lines or blocks of lines to generate
