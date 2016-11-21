@@ -15,7 +15,7 @@ The computing framework uses multiple computers inside Telecom ParisTech’s loc
 The Master node manages and launches programs remotely on slaves nodes that run these jobs.
 
 I) The Master node:
-* finds the available hosts of the network (network_discovery function).
+* finds the available hosts of the network (networkDiscovery function).
 * splits the initial file on which the word count procedure will be performed, either by lines or blocks of lines to generate
   multiple subfiles files Sx (splitting function).
 * distributes these generated splits to the available hosts of the network via threads.
