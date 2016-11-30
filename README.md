@@ -27,3 +27,4 @@ III) The Master node:
 * recuperates the output of the console to generate the <word, List(UM)> dictionary. For each word (key) of the dictionary, the Master launches a thread that calls the reduce method of the slave (mode UMXSMX: UMx-> SMx and afterwards SMx -> RMx) and retrieves the corresponding result from the console. 
 * finally, the Master waits until all threads finish their execution and assembles all RMx files into a final output file.
 
+
